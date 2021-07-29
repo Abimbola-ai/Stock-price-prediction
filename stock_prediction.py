@@ -41,14 +41,14 @@ def load_data(ticker:str, years:int,n_steps=50, scale=True, shuffle=True, lookup
     # see if ticker is already a loaded stock from yahoo finance
     
     # if isinstance(ticker, str):
-    #     #load it from yahoo_fin library
-    try:
-        df = get_data(ticker, years)
+    # #     #load it from yahoo_fin library
+    #try:
+    df = get_data(ticker, years)
     # elif isinstance(ticker, pd.DataFrame):
-    #     # already loaded, use it directly
-    #     df = ticker
-    except:
-        raise TypeError("ticker can be either a str or a `pd.DataFrame` instances")
+    # #     # already loaded, use it directly
+        # df = ticker
+    # else:
+    #     raise TypeError("ticker can be either a str or a `pd.DataFrame` instances")
     # this will contain all the elements we want to return from this function
     result = {}
     # we will also return the original dataframe itself

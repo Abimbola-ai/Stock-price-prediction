@@ -7,7 +7,7 @@ from parameters import *
 #from model import *
 
 
-def train_data(ticker, years):
+def train_data(ticker:str, years:int):
 # create these folders if they does not exist
     if not os.path.isdir("results"):
         os.mkdir("results")
