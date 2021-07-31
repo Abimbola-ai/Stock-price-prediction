@@ -6,7 +6,7 @@ import json
 from database import db
 import numpy
 from psycopg2.extensions import register_adapter, AsIs
-from predict import *
+from src.predict import *
 
 cursor = db().connect()
 
