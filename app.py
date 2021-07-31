@@ -1,11 +1,8 @@
-from types import MethodDescriptorType
+from typing import final
 from database.connect import DatabaseError
-from flask import Flask, request, render_template
-from tensorflow.keras.layers import LSTM
+from flask import Flask, request, render_template, jsonify
 import json
 from database import db
-import numpy
-from psycopg2.extensions import register_adapter, AsIs
 from src.predict import *
 
 cursor = db().connect()
@@ -20,12 +17,13 @@ def error_check()->str:
     else:
         return json.dumps({"error": "Prediction Failed"}), 500
 
-def process_input(request_data:str) -> np.array:
-    """Takes in the input data and converts it to an array
-    that the model can understand"""
-    parsed_body = np.asarray(json.loads(request_data)["inputs"])
-    assert len(parsed_body.shape) == 2, "'Input must be a 2-D array"
-    return parsed_body
+# def process_input(request_data:str) -> np.array:
+#     """Takes in the input data and converts it to an array
+#     that the model can understand"""
+#     parsed_body = np.asarray(json.loads(request_data)["inputs"])
+#     assert len(parsed_body.shape) == 2, "'Input must be a 2-D array"
+#     print(parsed_body)
+#     return parsed_body
 
 def get_database_data(query, args=(), one=False):
         cursor.execute(query, args)
@@ -42,8 +40,8 @@ def home():
 def predict_output():
     try:
         ticker = request.form.get('Stock Ticker Name')
-        years= request.form.get('Number of years', type=int)
-        val= predict_future_price(ticker,years)
+        years = request.form.get('Number of years', type=int)
+        val = predict_future_price(ticker,years)
         prediction = val[0]
         lr_confidence = round(val[1] * 100,2)
         price = np.round(prediction, decimals=2)
@@ -63,12 +61,17 @@ def predict_output():
 
 @app.route('/results', methods = ["POST"])
 def results_json():
-    if request.method == "POST": 
-        input_params = process_input(request.data)
-        ticker = input_params[0]
-        years = input_params[1]
-        output = predict_future_price(ticker,years)
-        return json.dumps({f"{ticker} price tomorrow will be $": output.tolist()})
+    data = request.get_json()
+    ticker = data[0]
+    years = data[1]
+    val = predict_future_price(ticker,years)
+    prediction = val[0]
+    lr_confidence = round(val[1] * 100,2)
+    price = np.round(prediction, decimals=2)
+    string_price = " ".join(map(str, price))
+    final_price = float(string_price)
+    return jsonify("Predicted price is ${} with a {} % confidence".format(final_price,lr_confidence))
+
 
 @app.route('/read_database', methods = ["GET"])
 def output():
