@@ -32,6 +32,11 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+*.gz
+*.pb
+*.v2
+*.profile-empty
+*.h5
 
 # Installer logs
 pip-log.txt
@@ -127,3 +132,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/events.out.tfevents.1627410878.MacBook-Air.local.16548.1073.v2
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/events.out.tfevents.1627410882.MacBook-Air.local.profile-empty
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/events.out.tfevents.1627420438.MacBook-Air.local.70106.1073.v2
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.input_pipeline.pb
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.kernel_stats.pb
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.memory_profile.json.gz
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.tensorflow_stats.pb
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.overview_page.pb
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.trace.json.gz
+.gitignore
+logs/2021-07-27_AAPL-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/plugins/profile/2021_07_27_19_34_42/MacBook-Air.local.xplane.pb
+logs/2021-07-29_TSLA-sh-1-sc-1-sbd-0-        huber_loss-adam-LSTM-seq-50-step-7-layers-2-units-256/train/events.out.tfevents.1627534627.MacBook-Air.local.77864.1073.v2
