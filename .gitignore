@@ -37,6 +37,8 @@ MANIFEST
 *.v2
 *.profile-empty
 *.h5
+*data/
+*.csv
 
 # Installer logs
 pip-log.txt
