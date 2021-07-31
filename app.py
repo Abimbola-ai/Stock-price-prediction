@@ -13,16 +13,23 @@ from database import db, DatabaseError
 # from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from database.data_import import *
+import numpy
+from psycopg2.extensions import register_adapter, AsIs
 
+cursor = db().connect()
 
 
 
 
 app = Flask(__name__)
 
+def addapt_numpy_float32(numpy_float32):
+    return AsIs(numpy_float32)
+
+register_adapter(numpy.float32, addapt_numpy_float32)
 
 def pred(ticker:str, years:int):
-    train_data(ticker,years)
+    #train_data(ticker,years)
     test(ticker,years)
     data = load_data(ticker, years, N_STEPS, scale=SCALE, split_by_date=SPLIT_BY_DATE, 
                 shuffle=SHUFFLE, lookup_step=LOOKUP_STEP, test_size=TEST_SIZE, 
@@ -65,22 +72,26 @@ def store_to_database():
 
 
     
-# @app.route("/plot")
-# def plot_png():
-#     return render_template("graph.html", name = "new_plot", url = "/static/images/new_plot.png")
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 @app.route('/predict', methods = ["POST"])
 def predict_output():
     # con = Data()
-    try:
-        ticker = request.form.get('Stock Ticker Name')
-        years = request.form.get('Number of years', type=int)
-        prediction= pred(ticker,years)
-        con = Data()
-        con.add_data()
-        return render_template("index.html", prediction_text="Future price after {} days is ${:.2f}".format(LOOKUP_STEP,prediction))
-    except:
-        return error_check()
+    # try:
+    ticker = request.form.get('Stock Ticker Name')
+    years = request.form.get('Number of years', type=int)
+    prediction= pred(ticker,years)
+    # con = Data()
+    # con.add_data()
+    cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
+            VALUES (%s, %s, %s)" ,(ticker,years, prediction))
+    #cursor.commit()
+    print("Record added successfully")
+    return render_template("index.html", prediction_text="Future price after {} days is ${:.2f}".format(LOOKUP_STEP,prediction))
+    # except:
+    #     return error_check()
 
 
 @app.route('/results', methods = ["POST"])

@@ -1,5 +1,6 @@
 from database import db
 
+
 class DataError(Exception):
     pass
 
@@ -14,7 +15,7 @@ class Data:
     def add_data(self):
         try:
             self.__cursor.execute("INSERT INTO Data (ticker, years, Future_price)\
-            VALUES (:ticker, :years, :prediction)") #,{"ticker": ticker, "years": years, "Future_price":prediction})
+            VALUES (:ticker, :years, :prediction)" ,{"ticker": ticker, "years": years, "Future_price":prediction})
             print("Record added successfully")
         except DataError:
             raise DataError("Unable to add record")

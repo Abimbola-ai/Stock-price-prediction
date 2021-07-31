@@ -29,7 +29,7 @@ class db:
             self.__cursor.execute("CREATE TABLE IF NOT EXISTS Data\
                         (id SERIAL PRIMARY KEY, \
                         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,\
-                             ticker VARCHAR(10), years INT, Future_price FLOAT8)")
+                             ticker_name VARCHAR(10), years_analysed INT, Future_price FLOAT)")
             print("Database table created")
        
         except (Exception, DatabaseError):
