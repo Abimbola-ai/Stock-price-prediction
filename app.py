@@ -4,7 +4,7 @@ import json
 from database import db
 from src.predict import *
 
-cursor = db().connect()
+
 
 app = Flask(__name__)
 
@@ -19,6 +19,7 @@ def error_check()->str:
 
 def get_database_data(query, args=(), one=False):
     """Gets data from the postgres database hosted on heroku"""
+    cursor = db().connect()
     cursor.execute(query, args)
     r = [dict((cursor.description[i][0], value)\
                     for i, value in enumerate(row)) for row in cursor.fetchall()]
@@ -43,6 +44,7 @@ def predict_output()->str:
         string_price = " ".join(map(str, price))
         final_price = float(string_price)
         try:
+            cursor = db().connect()
             cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
                 VALUES (%s, %s, %s)" ,(ticker, years, final_price))
         except DatabaseError:
