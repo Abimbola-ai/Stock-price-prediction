@@ -5,6 +5,7 @@ class DatabaseError(psycopg2.Error):
     pass
 
 class db:
+    
     def __init__(self) -> None:
         self.__connection = None
         self.__cursor = None
