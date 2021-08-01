@@ -17,16 +17,10 @@ def error_check()->str:
     else:
         return json.dumps({"error": "Prediction Failed"}), 500
 
-# def process_input(request_data:str) -> np.array:
-#     """Takes in the input data and converts it to an array
-#     that the model can understand"""
-#     parsed_body = np.asarray(json.loads(request_data)["inputs"])
-#     assert len(parsed_body.shape) == 2, "'Input must be a 2-D array"
-#     print(parsed_body)
-#     return parsed_body
 
 def get_database_data(query, args=(), one=False):
-        cursor.execute(query, args)
+    """Gets data from the postgres database hosted on heroku"""
+    cursor.execute(query, args)
         r = [dict((cursor.description[i][0], value)\
                     for i, value in enumerate(row)) for row in cursor.fetchall()]
         cursor.close()
@@ -70,7 +64,7 @@ def results_json():
     price = np.round(prediction, decimals=2)
     string_price = " ".join(map(str, price))
     final_price = float(string_price)
-    return jsonify("Predicted price is ${} with a {} % confidence".format(final_price,lr_confidence))
+    return jsonify("Predicted price is tomorrow is ${} with a {} % confidence".format(final_price,lr_confidence))
 
 
 @app.route('/read_database', methods = ["GET"])
