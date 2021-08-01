@@ -11,19 +11,19 @@ class db:
         self.__cursor = None
 
     def connect(self):
-        # try:
-        self.__connection = psycopg2.connect(
+        try:
+            self.__connection = psycopg2.connect(
                                 dbname = config("db_name"),
                                 port = config("db_port"),
                                 host = config("db_host"),
                                 user = config("db_user"),
                                 password = config("db_password"))
         
-        self.__connection.autocommit = True
-        self.__cursor = self.__connection.cursor()
-        return self.__cursor
-        # except (Exception, DatabaseError):
-        #     raise DatabaseError("Unable to connect to the database")
+            self.__connection.autocommit = True
+            self.__cursor = self.__connection.cursor()
+            return self.__cursor
+        except (Exception, DatabaseError):
+            raise DatabaseError("Unable to connect to the database")
     
     def create_tables(self):
         try:
