@@ -43,12 +43,12 @@ def predict_output()->str:
         price = np.round(prediction, decimals=2)
         string_price = " ".join(map(str, price))
         final_price = float(string_price)
-        try:
-            cursor = db().connect()
-            cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
-                VALUES (%s, %s, %s)" ,(ticker, years, final_price))
-        except DatabaseError:
-            raise DatabaseError("Unable to add data")
+        # try:
+        #     cursor = db().connect()
+        #     cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
+        #         VALUES (%s, %s, %s)" ,(ticker, years, final_price))
+        # except DatabaseError:
+        #     raise DatabaseError("Unable to add data")
         
         return render_template("index.html", prediction_text="{} price tomorrow will be ${:.2f} with a \
              confidence of {}%".format(ticker,final_price, lr_confidence))
