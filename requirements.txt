@@ -1,6 +1,11 @@
+click==8.0.1
 decouple==0.0.7
+Flask==2.0.1
 gunicorn==20.1.0
+itsdangerous==2.0.1
+Jinja2==3.0.1
 joblib==1.0.1
+MarkupSafe==2.0.1
 numpy==1.21.1
 psycopg2==2.9.1
 scikit-learn==0.24.2
@@ -8,3 +13,4 @@ scipy==1.7.0
 sklearn==0.0
 stocks @ git+https://github.com/Abimbola-ai/get-any-stock-history-data@e6b12dfe773b1928dae2b93bdc8871aed54c6d1e
 threadpoolctl==2.2.0
+Werkzeug==2.0.1
