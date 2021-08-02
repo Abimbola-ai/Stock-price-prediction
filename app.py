@@ -17,6 +17,7 @@ def error_check()->str:
         return json.dumps({"error": "Prediction Failed"}), 500
 
 
+
 @app.route("/")
 def home():
     """Renders initial template for the app"""
@@ -34,9 +35,15 @@ def predict_output()->str:
         price = np.round(prediction, decimals=2)
         string_price = " ".join(map(str, price))
         final_price = float(string_price)
+        return render_template("index.html", prediction_text="{} price tomorrow will be ${:.2f} with a \
+             confidence of {}%".format(ticker,final_price, lr_confidence))
     except:
         return error_check()
 
+
+    
+
+ 
 if __name__ == "__main__":
     app.run(debug=True)
 
