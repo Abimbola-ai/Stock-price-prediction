@@ -49,12 +49,10 @@ def predict_output()->str:
                 VALUES (%s, %s, %s)" ,(ticker, years, final_price))
         except DatabaseError:
             raise DatabaseError("Unable to add data")
-        
         return render_template("index.html", prediction_text="{} price tomorrow will be ${:.2f} with a \
              confidence of {}%".format(ticker,final_price, lr_confidence))
     except:
         return error_check()
-
 
 @app.route('/results', methods = ["POST"])
 def results_json():
