@@ -16,6 +16,12 @@ def error_check()->str:
     else:
         return json.dumps({"error": "Prediction Failed"}), 500
 
+def clean_final_price(prediction:float)->float:
+    """Converts the output from a tuple to a float"""
+    price = np.round(prediction, decimals=2)
+    string_price = " ".join(map(str, price))
+    final_price = float(string_price)
+    return final_price
 
 def get_database_data(query, args=(), one=False):
     """Gets data from the postgres database hosted on heroku"""
@@ -40,9 +46,7 @@ def predict_output()->str:
         val = predict_future_price(ticker,years)
         prediction = val[0]
         lr_confidence = round(val[1] * 100,2)
-        price = np.round(prediction, decimals=2)
-        string_price = " ".join(map(str, price))
-        final_price = float(string_price)
+        final_price = clean_final_price(prediction)
         try:
             cursor = db().connect()
             cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
@@ -54,6 +58,7 @@ def predict_output()->str:
     except:
         return error_check()
 
+
 @app.route('/results', methods = ["POST"])
 def results_json():
     """Takes in form data from user and returns future price and accuracy of prediction in json format"""
@@ -63,10 +68,9 @@ def results_json():
     val = predict_future_price(ticker,years)
     prediction = val[0]
     lr_confidence = round(val[1] * 100,2)
-    price = np.round(prediction, decimals=2)
-    string_price = " ".join(map(str, price))
-    final_price = float(string_price)
-    return json.dumps({"Predicted future Price in Dollars": final_price})
+    final_price = clean_final_price(prediction)
+    result_output = json.dumps({"Predicted future Price in Dollars": final_price})
+    return result_output
 
 
 @app.route('/read_database', methods = ["GET"])

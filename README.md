@@ -1,48 +1,46 @@
-# Stock-price-prediction
-# Simple maths calculator
+# Daily Stock Price Prediction
+The project is carried out to fulfill the following requirements:
 
-Simple math calculator for your everyday use.
+* Create an API using Flask
+* Save and load trained models 
+* Store inputs and output in Heroku postgres database
+* Create inference pipeline for the trained model
+* Deploy the Flask application using Heroku
 
-## Installation
+### Features of the dataset:
+#### Application Input
+* TICKER: Name of the stock price you want to predict
+* YEARS: Number of years of data to be used for analysis 
 
-Use a python interface
-and run `pip install git+https://github.com/Abimbola-ai/simple-calculator.git` to download all files.
+#### Application Output
+* PRICE: Next day price of the stock
+* CONFIDENCE: Accuracy of the model
 
-## Usage
+You can use the app by clicking on the url below:
 
-### How to create a calculator?
+https://daily-stock-price-prediction.herokuapp.com/
 
-Example code below will create the calculator method for five different operations.
 
-Import the calculator module and call the class:
+### For further development:
 
 ```
-from calculator.calc import Calculator
-calculator = Calculator()
+pip install requirements.txt
 ```
 
-The current value on the calculator is 0. To perform Add operation:
+### Below is an example on how to make a price request on 2 inputs:
+```
+import requests
+import json
+
+url = 'http://127.0.0.1:5000/results'
+data = ["TSLA",5]
+j_data= json.dumps(data)
+headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+r = requests.post(url, data=j_data, headers=headers)
+print(r,r.text)
 
 ```
-calculator.add(5)
+Prints out:
 ```
-
-Returns 0 + 5 = 5
-
-Other methods are `.subtract, .multipy(), .divide(), .nroot().`
-
-What is what:
-
-- [CalculatorModule](/calculator/calc.py) contains the calculation algorithm;
-- [test](/tests/calculator_test.py) contains the `pytest` configuration for the `CalculatorModule`;
-
-### How to calculate?
-
-Select the operation you want to perform, using the instructions that get printed out.
-The calculate default value is 0. To set a current value rather that 0, use `calculator.current_value = 9`
-
-### More ideas how to use and extend calculator
-
-- Undo the calculator 3 steps before;
-- Reset memory without having to restart the calculator;
-- Recall previous memory;
+ {"Predicted future Price in Dollars": 717.73}
+```
