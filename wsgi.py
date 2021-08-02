@@ -66,7 +66,7 @@ def results_json():
     price = np.round(prediction, decimals=2)
     string_price = " ".join(map(str, price))
     final_price = float(string_price)
-    return json.dumps({"Predicted future Price in Dollars": final_price.tolist()})
+    return json.dumps({"Predicted future Price in Dollars": final_price})
 
 
 @app.route('/read_database', methods = ["GET"])
