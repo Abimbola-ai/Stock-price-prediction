@@ -63,7 +63,7 @@ def predict_output()->str:
         prediction = val[0]
         lr_confidence = round(val[1] * 100,2)
         final_price = clean_final_price(prediction)
-        #insert_data(ticker, years, final_price)
+        insert_data(ticker, years, final_price)
         return render_template("index.html", prediction_text="{} price tomorrow will be ${:.2f} with a \
              confidence of {}%".format(ticker,final_price, lr_confidence))
     except:
