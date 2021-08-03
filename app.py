@@ -44,6 +44,7 @@ def insert_data(ticker:str, years: int, final_price:float):
         cursor = db().connect()
         cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
                 VALUES (%s, %s, %s)" ,(ticker, years, final_price))
+        cursor.close()
     except DatabaseError:
         raise DatabaseError("Unable to add data")
 
@@ -62,7 +63,7 @@ def predict_output()->str:
         prediction = val[0]
         lr_confidence = round(val[1] * 100,2)
         final_price = clean_final_price(prediction)
-        #insert_data(ticker, years, final_price)
+        insert_data(ticker, years, final_price)
         return render_template("index.html", prediction_text="{} price tomorrow will be ${:.2f} with a \
              confidence of {}%".format(ticker,final_price, lr_confidence))
     except:

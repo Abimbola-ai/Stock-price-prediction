@@ -4,7 +4,7 @@ from decouple import config
 class DatabaseError(psycopg2.Error):
     pass
 
-class db:
+class Database:
 
     def __init__(self) -> None:
         self.__connection = None
@@ -44,7 +44,7 @@ class db:
         except (Exception, DatabaseError):
             raise DatabaseError("Unable to drop table")
 if __name__=="__main__":
-    d = db()
+    d = Database()
     d.connect()
     d.create_tables()
   
