@@ -1,7 +1,7 @@
 from database.connect import DatabaseError
 from flask import Flask, request, render_template, jsonify
 import json
-from database import db
+from database import Database
 from src.predict import *
 
 
@@ -31,7 +31,7 @@ def clean_final_price(prediction:float)->float:
 
 def get_database_data(query, args=(), one=False):
     """Gets data from the postgres database hosted on heroku"""
-    cursor = db().connect()
+    cursor = Database().connect()
     cursor.execute(query, args)
     r = [dict((cursor.description[i][0], value)\
                     for i, value in enumerate(row)) for row in cursor.fetchall()]
@@ -41,7 +41,7 @@ def get_database_data(query, args=(), one=False):
 def insert_data(ticker:str, years: int, final_price:float):
     """Connects to the postgres database and reads database"""
     try:
-        cursor = db().connect()
+        cursor = Database().connect()
         cursor.execute("INSERT INTO Data (ticker_name, years_analysed, Future_price)\
                 VALUES (%s, %s, %s)" ,(ticker, years, final_price))
         cursor.close()
