@@ -8,6 +8,11 @@ from src.predict import *
 
 app = Flask(__name__)
 
+def pipeline(ticker, years):
+    ticker = str(ticker)
+    years = int(years)
+    return ticker, years
+
 
 def error_check()->str:
     """Checks for errors and outputs a string"""
@@ -70,6 +75,7 @@ def results_json():
     data = request.get_json()
     ticker = data[0]
     years = data[1]
+    ticker,years = pipeline(ticker, years)
     pred = predict_future_price(ticker,years)
     predicted_price = pred[0]
     final_price = clean_final_price(predicted_price)
