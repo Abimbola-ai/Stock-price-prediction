@@ -9,6 +9,7 @@ from src.predict import *
 app = Flask(__name__)
 
 def pipeline(ticker, years):
+    """Converts user input to appropriate types"""
     ticker = str(ticker)
     years = int(years)
     return ticker, years
