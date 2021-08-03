@@ -39,6 +39,7 @@ MANIFEST
 *.h5
 *data/
 *.csv
+*.json
 
 # Installer logs
 pip-log.txt
