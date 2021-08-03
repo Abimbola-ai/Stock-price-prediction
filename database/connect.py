@@ -12,12 +12,13 @@ class Database:
 
     def connect(self):
         try:
-            self.__connection = psycopg2.connect(
-                                dbname = config("db_name"),
-                                port = config("db_port"),
-                                host = config("db_host"),
-                                user = config("db_user"),
-                                password = config("db_password"))
+            url = config("DATABASE_URL")
+            self.__connection = psycopg2.connect(url)
+                                # dbname = config("db_name"),
+                                # port = config("db_port"),
+                                # host = config("db_host"),
+                                # user = config("db_user"),
+                                # password = config("db_password"))
         
             self.__connection.autocommit = True
             self.__cursor = self.__connection.cursor()
