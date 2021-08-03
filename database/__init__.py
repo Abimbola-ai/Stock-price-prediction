@@ -1,1 +1,1 @@
-from .connect import db, DatabaseError
+from .connect import Database, DatabaseError
